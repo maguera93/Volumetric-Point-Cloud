@@ -1,0 +1,10 @@
+{
+    "name": "Marcagueragarcia.Volumsdk.Editor",
+    "references": [
+      "Marcagueragarcia.Volumsdk"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

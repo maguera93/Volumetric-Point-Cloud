@@ -1,0 +1,14 @@
+{
+    "name": "Marcagueragarcia.Volumsdk.Editor.Tests",
+    "references": [
+        "Marcagueragarcia.Volumsdk.Editor",
+        "Marcagueragarcia.Volumsdk"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

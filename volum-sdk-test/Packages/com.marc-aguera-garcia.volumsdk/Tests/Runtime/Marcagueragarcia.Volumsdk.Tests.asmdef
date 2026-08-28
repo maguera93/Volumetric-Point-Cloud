@@ -1,0 +1,11 @@
+{
+    "name": "Marcagueragarcia.Volumsdk.Tests",
+    "references": [
+        "Marcagueragarcia.Volumsdk"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}
