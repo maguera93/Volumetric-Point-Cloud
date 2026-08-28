@@ -2,7 +2,10 @@ using UnityEngine;
 
 namespace Volum.SDK
 {
-    public class VolumSDK
+    /// <summary>
+    /// Entry point of the Volum SDK
+    /// </summary>
+    public static class VolumSDK
     {
 
     }
