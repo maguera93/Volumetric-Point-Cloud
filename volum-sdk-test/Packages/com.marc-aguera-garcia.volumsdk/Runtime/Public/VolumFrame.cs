@@ -1,3 +1,4 @@
+using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = Unity.Mathematics.Random;
@@ -9,6 +10,17 @@ namespace Volum.SDK
     /// </summary>
     public class VolumFrame
     {
+        public NativeArray<VolumPoint> Points;
+        public int PointCount;
+        public int FrameIndex;
+        public float TimeSeconds;
 
+        internal VolumFrame(NativeArray<VolumPoint> points, int frameIndex, float timeSeconds)
+        {
+            Points = points;
+            PointCount = points.Length;
+            FrameIndex = frameIndex;
+            TimeSeconds = timeSeconds;
+        }
     }
 }

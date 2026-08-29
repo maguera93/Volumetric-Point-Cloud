@@ -35,8 +35,11 @@ namespace Volum.SDK
             while (_accumulator >= _fixedDeltaTime)
             {
                 _accumulator -= _fixedDeltaTime;
-                _processor.Tick();
-                //OnFrameReady?.Invoke();
+                if (_processor.TryAdvance(deltaTime, out VolumFrame frame))
+                {
+                    OnFrameReady?.Invoke(frame);
+                }
+                
             }
         }
 

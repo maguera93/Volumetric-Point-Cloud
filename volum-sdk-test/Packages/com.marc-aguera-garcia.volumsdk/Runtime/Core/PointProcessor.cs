@@ -13,13 +13,15 @@ namespace Volum.SDK.Core
         private VolumStreamConfig _config;
 
         private JobHandle _handle;
-        public Transform[] spheres;
+        private bool _hasPending;
 
-        public float _speed = 10;
-        public float _noiseFrequency = 1;
+        private float _speed = 10;
+        private float _noiseFrequency = 1;
+        private float _elapsed;
 
         private NativeArray<float3> _basePos;
-        public NativeArray<VolumPoint> result;
+        private NativeArray<VolumPoint> _result;
+        private int CurrentFrame;
 
 
         public PointProcessor(VolumStreamConfig config)
@@ -29,47 +31,67 @@ namespace Volum.SDK.Core
 
         public void Initialize()
         {
-            _basePos = new NativeArray<float3>(spheres.Length, Allocator.Persistent);
-            result = new NativeArray<VolumPoint>(spheres.Length, Allocator.Persistent);
+            _basePos = new NativeArray<float3>(_config.PointCount, Allocator.Persistent);
+            _result = new NativeArray<VolumPoint>(_config.PointCount, Allocator.Persistent);
 
-            for (int i = 0; i < spheres.Length; i++)
+            if (!_hasPending)
             {
-                _basePos[i] = spheres[i].transform.position;
+                NextFrame();
             }
         }
 
-        public void Tick()
+        public bool TryAdvance(float deltaTime, out VolumFrame frame)
         {
-            _handle.Complete();
+            _elapsed += deltaTime;
 
-            for (int i = 0; i < spheres.Length; i++)
+            if (!_hasPending)
             {
-                spheres[i].position = result[i].Position;
+                frame = default;
+                return false;
             }
 
+            _handle.Complete();
+            _hasPending = false;
+
+            CurrentFrame++;
+
+            frame = new VolumFrame(_result, CurrentFrame, _elapsed);
+
+            NextFrame();
+
+            return true;
+        }
+
+        public void NextFrame()
+        {
             var job = new TransformPointJob
             {
-                Time = Time.time,
+                Time = _elapsed,
                 Speed = _speed,
                 NoiseFrequency = _noiseFrequency,
                 BasePos = _basePos,
-                OutPut = result
+                OutPut = _result
             };
 
-            _handle = job.Schedule(spheres.Length, 64);
+            _handle = job.Schedule(_config.PointCount, BATCH_SIZE);
+            _hasPending = true;
         }
 
         public void CompletePending()
         {
-            _handle.Complete();
+            if (_hasPending)
+            {
+                _handle.Complete();
+                _hasPending = false;
+            }
         }
 
         public void Dispose()
         {
-            _handle.Complete();
+            CompletePending();
 
             if (_basePos.IsCreated) _basePos.Dispose();
-            if (result.IsCreated) result.Dispose();
+            if (_result.IsCreated) _result.Dispose();
         }
     }
 }

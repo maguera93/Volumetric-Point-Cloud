@@ -11,11 +11,15 @@ public class VolumController : MonoBehaviour
     private int _pointCount = 50000;
     [SerializeField]
     private int _frameRate = 60;
+    [SerializeField]
+    private float _volumeRadius = 5f;
 
     private VolumStream _stream;
 
     VolumFrame _frame;
     Mesh _mesh;
+    NativeArray<int> _indices;
+    int _allocatedPointCount = -1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -38,6 +42,49 @@ public class VolumController : MonoBehaviour
         };
 
         _stream = VolumSDK.InitStream(config);
+        _stream.OnFrameReady += UpdateMesh;
+        _stream.Start();
+    }
+
+    private void Update()
+    {
+        _stream.Tick(Time.deltaTime);
+    }
+
+    private void UpdateMesh(VolumFrame frame)
+    {
+        if (frame.PointCount != _allocatedPointCount)
+        {
+            AllocateMeshBuffers(frame.PointCount);
+        }
+
+        _mesh.SetVertexBufferData(
+            frame.Points, 0, 0, frame.PointCount, 0,
+            MeshUpdateFlags.DontRecalculateBounds | MeshUpdateFlags.DontValidateIndices);
+    }
+
+
+    private void AllocateMeshBuffers(int count)
+    {
+        _mesh.Clear();
+
+        var layout = new[]
+        {
+                new VertexAttributeDescriptor(VertexAttribute.Position, VertexAttributeFormat.Float32, 3),
+                new VertexAttributeDescriptor(VertexAttribute.Color, VertexAttributeFormat.Float32, 4),
+            };
+        _mesh.SetVertexBufferParams(count, layout);
+
+        if (_indices.IsCreated) _indices.Dispose();
+        _indices = new NativeArray<int>(count, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+        for (int i = 0; i < count; i++) _indices[i] = i;
+
+        _mesh.SetIndexBufferParams(count, IndexFormat.UInt32);
+        _mesh.SetIndexBufferData(_indices, 0, 0, count);
+        _mesh.SetSubMesh(0, new SubMeshDescriptor(0, count, MeshTopology.Points));
+
+        _mesh.bounds = new Bounds(Vector3.zero, Vector3.one * (_volumeRadius * 3f));
+        _allocatedPointCount = count;
     }
 
 }
