@@ -3,7 +3,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
-
+/*
 public struct TransformJob : IJobParallelFor
 {
     public float Time;
@@ -48,7 +48,6 @@ public class TestMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        // Persistent: vive hasta que lo liberemos manualmente (Temp solo dura el frame/scope actual)
         basePos = new NativeArray<float3>(spheres.Length, Allocator.Persistent);
         result = new NativeArray<float3>(spheres.Length, Allocator.Persistent);
 
@@ -61,10 +60,8 @@ public class TestMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Completamos el job del frame anterior antes de tocar los arrays o programar uno nuevo
         _handle.Complete();
 
-        // Aplicamos el resultado del job ya completado a las esferas
         for (int i = 0; i < spheres.Length; i++)
         {
             spheres[i].position = result[i];
@@ -84,7 +81,6 @@ public class TestMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        // Nos aseguramos de que el job termine antes de que el frame acabe
         _handle.Complete();
     }
 
@@ -96,3 +92,4 @@ public class TestMovement : MonoBehaviour
         if (result.IsCreated) result.Dispose();
     }
 }
+*/
