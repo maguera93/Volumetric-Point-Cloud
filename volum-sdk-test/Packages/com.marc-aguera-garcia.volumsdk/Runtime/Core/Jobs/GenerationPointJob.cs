@@ -7,7 +7,7 @@ using Random = Unity.Mathematics.Random;
 namespace Volum.SDK.Core.Jobs
 {
     [GenerateTestsForBurstCompatibility]
-    public struct GenerationPointJob : IJobParallelFor
+    internal struct GenerationPointJob : IJobParallelFor
     {
         public NativeArray<float3> BasePositions;
         public float Radius;

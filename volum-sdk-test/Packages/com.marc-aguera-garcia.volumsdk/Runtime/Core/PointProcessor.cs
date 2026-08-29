@@ -1,3 +1,4 @@
+using System;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
@@ -6,7 +7,7 @@ using Volum.SDK.Core.Jobs;
 
 namespace Volum.SDK.Core
 {
-    public class PointProcessor
+    internal sealed class PointProcessor : IDisposable
     {
         private const int BATCH_SIZE = 64;
 

@@ -8,7 +8,7 @@ using Volum.SDK;
 namespace Volum.SDK.Core.Jobs
 {
     [BurstCompile(FloatMode = FloatMode.Fast, FloatPrecision = FloatPrecision.Standard)]
-    public struct TransformPointJob : IJobParallelFor
+    internal struct TransformPointJob : IJobParallelFor
     {
         private const float Y_DISPLACEMENT = 30F;
         private const float Z_DISPLACEMENT = 70F;
