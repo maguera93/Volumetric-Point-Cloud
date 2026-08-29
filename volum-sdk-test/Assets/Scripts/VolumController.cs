@@ -56,6 +56,22 @@ public class VolumController : MonoBehaviour
         _stream.Start();
     }
 
+    private void OnDisable()
+    {
+        if (_stream != null)
+            return; 
+
+        _stream.OnFrameReady -= UpdateMesh;
+        _stream.Dispose();
+        _stream = null;
+    }
+
+    private void OnDestroy()
+    {
+        if (_indices.IsCreated) _indices.Dispose();
+        if (_mesh != null) Destroy(_mesh);
+    }
+
     private void UpdateMesh(VolumFrame frame)
     {
         if (frame.PointCount != _allocatedPointCount)

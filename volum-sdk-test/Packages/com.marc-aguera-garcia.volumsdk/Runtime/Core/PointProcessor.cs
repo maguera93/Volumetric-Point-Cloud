@@ -33,9 +33,18 @@ namespace Volum.SDK.Core
 
         public void Initialize()
         {
-            _basePos = new NativeArray<float3>(_config.PointCount, Allocator.Persistent);
-            _bufferA = new NativeArray<VolumPoint>(_config.PointCount, Allocator.Persistent);
-            _bufferB = new NativeArray<VolumPoint>(_config.PointCount, Allocator.Persistent);
+            _basePos = new NativeArray<float3>(_config.PointCount, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+            _bufferA = new NativeArray<VolumPoint>(_config.PointCount, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+            _bufferB = new NativeArray<VolumPoint>(_config.PointCount, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+
+            var genJob = new GenerationPointJob
+            {
+                BasePositions = _basePos,
+                Radius = _config.VolumRadius,
+                Seed = _config.Seed,
+            };
+
+            genJob.Schedule(_config.PointCount, BATCH_SIZE).Complete();
 
             if (!_hasPending)
             {
