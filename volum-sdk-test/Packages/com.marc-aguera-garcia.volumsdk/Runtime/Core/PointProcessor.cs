@@ -20,9 +20,11 @@ namespace Volum.SDK.Core
         private float _elapsed;
 
         private NativeArray<float3> _basePos;
-        private NativeArray<VolumPoint> _result;
+        private NativeArray<VolumPoint> _bufferA;
+        private NativeArray<VolumPoint> _bufferB;
         private int CurrentFrame;
 
+        private int _writeIndex;
 
         public PointProcessor(VolumStreamConfig config)
         {
@@ -32,7 +34,8 @@ namespace Volum.SDK.Core
         public void Initialize()
         {
             _basePos = new NativeArray<float3>(_config.PointCount, Allocator.Persistent);
-            _result = new NativeArray<VolumPoint>(_config.PointCount, Allocator.Persistent);
+            _bufferA = new NativeArray<VolumPoint>(_config.PointCount, Allocator.Persistent);
+            _bufferB = new NativeArray<VolumPoint>(_config.PointCount, Allocator.Persistent);
 
             if (!_hasPending)
             {
@@ -53,10 +56,12 @@ namespace Volum.SDK.Core
             _handle.Complete();
             _hasPending = false;
 
+            NativeArray<VolumPoint> ready = _writeIndex == 0 ? _bufferA : _bufferB;
             CurrentFrame++;
+            frame = new VolumFrame(ready, CurrentFrame, _elapsed);
 
-            frame = new VolumFrame(_result, CurrentFrame, _elapsed);
-
+            // Change buffer
+            _writeIndex = 1 - _writeIndex;
             NextFrame();
 
             return true;
@@ -64,13 +69,15 @@ namespace Volum.SDK.Core
 
         public void NextFrame()
         {
+            NativeArray<VolumPoint> ready = _writeIndex == 0 ? _bufferA : _bufferB;
+
             var job = new TransformPointJob
             {
                 Time = _elapsed,
                 Speed = _speed,
                 NoiseFrequency = _noiseFrequency,
                 BasePos = _basePos,
-                OutPut = _result
+                OutPut = ready
             };
 
             _handle = job.Schedule(_config.PointCount, BATCH_SIZE);
@@ -91,7 +98,8 @@ namespace Volum.SDK.Core
             CompletePending();
 
             if (_basePos.IsCreated) _basePos.Dispose();
-            if (_result.IsCreated) _result.Dispose();
+            if (_bufferA.IsCreated) _bufferA.Dispose();
+            if (_bufferB.IsCreated) _bufferB.Dispose();
         }
     }
 }

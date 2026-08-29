@@ -25,6 +25,9 @@ namespace Volum.SDK
         public void Start()
         {
             _processor.Initialize();
+            _accumulator = 0f;
+
+            VolumPlayerLoop.Register(Tick);
         }
 
         // Update call
@@ -51,6 +54,7 @@ namespace Volum.SDK
 
         public void Stop()
         {
+            VolumPlayerLoop.Unregister(Tick);
             _processor.CompletePending();
         }
     }

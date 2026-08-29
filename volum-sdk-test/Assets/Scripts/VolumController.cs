@@ -13,6 +13,12 @@ public class VolumController : MonoBehaviour
     private int _frameRate = 60;
     [SerializeField]
     private float _volumeRadius = 5f;
+    [SerializeField]
+    private float _speed = 1f;
+    [SerializeField]
+    private float _noiseFrequency = 0.15f;
+    [SerializeField]
+    private float _seed = 5f;
 
     private VolumStream _stream;
 
@@ -38,17 +44,16 @@ public class VolumController : MonoBehaviour
         var config = new VolumStreamConfig 
         {
             FrameRate = _frameRate,
-            PointCount = _pointCount
+            PointCount = _pointCount,
+            VolumRadius = _volumeRadius,
+            NoiseFrequency = _noiseFrequency,
+            Speed = _speed,
+            Seed = (uint)Time.time
         };
 
         _stream = VolumSDK.InitStream(config);
         _stream.OnFrameReady += UpdateMesh;
         _stream.Start();
-    }
-
-    private void Update()
-    {
-        _stream.Tick(Time.deltaTime);
     }
 
     private void UpdateMesh(VolumFrame frame)
