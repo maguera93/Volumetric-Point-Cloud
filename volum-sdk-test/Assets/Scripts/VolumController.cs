@@ -17,15 +17,15 @@ public class VolumController : MonoBehaviour
     private float _speed = 1f;
     [SerializeField]
     private float _noiseFrequency = 0.15f;
-    [SerializeField]
-    private float _seed = 5f;
+
+    [Space, SerializeField]
+    private Material _pointMaterial;
 
     private VolumStream _stream;
 
-    VolumFrame _frame;
-    Mesh _mesh;
-    NativeArray<int> _indices;
-    int _allocatedPointCount = -1;
+    private Mesh _mesh;
+    private NativeArray<int> _index;
+    private int _allocatedPointCount = -1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -36,6 +36,12 @@ public class VolumController : MonoBehaviour
         _mesh = new Mesh { name = "VolumStream Mesh" };
         _mesh.MarkDynamic(); // hint the driver this mesh's vertex data changes every frame
         filter.sharedMesh = _mesh;
+
+        meshRenderer.sharedMaterial = _pointMaterial != null
+            ? _pointMaterial
+            : new Material(Shader.Find("Hidden/Internal-Colored"));
+        meshRenderer.shadowCastingMode = ShadowCastingMode.Off;
+        meshRenderer.receiveShadows = false;
     }
 
 
@@ -47,8 +53,7 @@ public class VolumController : MonoBehaviour
             PointCount = _pointCount,
             VolumRadius = _volumeRadius,
             NoiseFrequency = _noiseFrequency,
-            Speed = _speed,
-            Seed = (uint)Time.time
+            Speed = _speed
         };
 
         _stream = VolumSDK.InitStream(config);
@@ -68,7 +73,7 @@ public class VolumController : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (_indices.IsCreated) _indices.Dispose();
+        if (_index.IsCreated) _index.Dispose();
         if (_mesh != null) Destroy(_mesh);
     }
 
@@ -96,12 +101,12 @@ public class VolumController : MonoBehaviour
             };
         _mesh.SetVertexBufferParams(count, layout);
 
-        if (_indices.IsCreated) _indices.Dispose();
-        _indices = new NativeArray<int>(count, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
-        for (int i = 0; i < count; i++) _indices[i] = i;
+        if (_index.IsCreated) _index.Dispose();
+        _index = new NativeArray<int>(count, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+        for (int i = 0; i < count; i++) _index[i] = i;
 
         _mesh.SetIndexBufferParams(count, IndexFormat.UInt32);
-        _mesh.SetIndexBufferData(_indices, 0, 0, count);
+        _mesh.SetIndexBufferData(_index, 0, 0, count);
         _mesh.SetSubMesh(0, new SubMeshDescriptor(0, count, MeshTopology.Points));
 
         _mesh.bounds = new Bounds(Vector3.zero, Vector3.one * (_volumeRadius * 3f));

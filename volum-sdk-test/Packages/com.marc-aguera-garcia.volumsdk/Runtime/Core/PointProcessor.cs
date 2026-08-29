@@ -15,9 +15,6 @@ namespace Volum.SDK.Core
 
         private JobHandle _handle;
         private bool _hasPending;
-
-        private float _speed = 10;
-        private float _noiseFrequency = 1;
         private float _elapsed;
 
         private NativeArray<float3> _basePos;
@@ -84,8 +81,8 @@ namespace Volum.SDK.Core
             var job = new TransformPointJob
             {
                 Time = _elapsed,
-                Speed = _speed,
-                NoiseFrequency = _noiseFrequency,
+                Speed = _config.Speed,
+                NoiseFrequency = _config.NoiseFrequency,
                 BasePos = _basePos,
                 OutPut = ready
             };

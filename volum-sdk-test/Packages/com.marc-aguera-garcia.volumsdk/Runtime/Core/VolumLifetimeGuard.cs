@@ -11,6 +11,7 @@ namespace Volum.SDK.Core
 
         internal static void Register(VolumStream stream)
         {
+            EnsureHooked();
             _active.Add(stream);
         }
 
@@ -20,6 +21,15 @@ namespace Volum.SDK.Core
         }
 
         private static void EnsureHooked()
+        {
+            if (_hooked)
+                return;
+
+            Application.quitting += ForceDisposeAll;
+            _hooked = true;
+        }
+
+        internal static void ForceDisposeAll()
         {
             for (int i = _active.Count - 1; i >= 0; i--)
             {

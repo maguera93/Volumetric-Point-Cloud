@@ -27,18 +27,22 @@ namespace Volum.SDK.Core.Jobs
             float3 basePos = BasePos[index];
             float acceleration = Time * Speed;
 
+            // Perlin noise
             float x = noise.snoise(new float4(basePos * NoiseFrequency, acceleration));
             float y = noise.snoise(new float4(basePos.yzx * NoiseFrequency, acceleration + Y_DISPLACEMENT));
             float z = noise.snoise(new float4(basePos.zxy * NoiseFrequency, acceleration + Z_DISPLACEMENT));
 
             float3 newPos = basePos + new float3(x, y, z) * MOVEMENT;
 
+            // Wave effect
             float angle = acceleration * ANGLE_MOVEMENT;
             float cs = math.cos(angle);
             float sn = math.sin(angle);
             newPos = new float3(newPos.x * cs - newPos.z * sn, newPos.y, newPos.x * sn + newPos.z * cs);
 
-            OutPut[index] = new VolumPoint { Position = newPos};
+            float4 color = new float4(255, 255, 255, 255);
+
+            OutPut[index] = new VolumPoint { Position = newPos, Color = color};
         }
     }
 }
