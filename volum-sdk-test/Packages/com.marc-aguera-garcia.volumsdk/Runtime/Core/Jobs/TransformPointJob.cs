@@ -1,3 +1,4 @@
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
@@ -6,6 +7,7 @@ using Volum.SDK;
 
 namespace Volum.SDK.Core.Jobs
 {
+    [BurstCompile(FloatMode = FloatMode.Fast, FloatPrecision = FloatPrecision.Standard)]
     public struct TransformPointJob : IJobParallelFor
     {
         private const float Y_DISPLACEMENT = 30F;
