@@ -24,12 +24,13 @@ namespace Volum.SDK.Core
 
         private int _writeIndex;
 
-        public PointProcessor(VolumStreamConfig config)
+        internal PointProcessor(VolumStreamConfig config)
         {
             _config = config;
         }
 
-        public void Initialize()
+        // Initialize points procession
+        internal void Initialize()
         {
             _basePos = new NativeArray<float3>(_config.PointCount, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
             _bufferA = new NativeArray<VolumPoint>(_config.PointCount, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
@@ -50,7 +51,8 @@ namespace Volum.SDK.Core
             }
         }
 
-        public bool TryAdvance(float deltaTime, out VolumFrame frame)
+        // Try to process next frame
+        internal bool TryAdvance(float deltaTime, out VolumFrame frame)
         {
             _elapsed += deltaTime;
 
@@ -74,7 +76,8 @@ namespace Volum.SDK.Core
             return true;
         }
 
-        public void NextFrame()
+        // Process next frame, changes buffer to speed process
+        internal void NextFrame()
         {
             NativeArray<VolumPoint> ready = _writeIndex == 0 ? _bufferA : _bufferB;
 
@@ -91,7 +94,8 @@ namespace Volum.SDK.Core
             _hasPending = true;
         }
 
-        public void CompletePending()
+        // Completes pending job
+        internal void CompletePending()
         {
             if (_hasPending)
             {

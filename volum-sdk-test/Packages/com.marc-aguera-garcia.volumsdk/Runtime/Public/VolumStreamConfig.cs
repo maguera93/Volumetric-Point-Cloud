@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Volum.SDK
 {
+    /// <summary>
+    /// Volum Streaming Configuration
+    /// </summary>
     [Serializable]
     public struct VolumStreamConfig
     {

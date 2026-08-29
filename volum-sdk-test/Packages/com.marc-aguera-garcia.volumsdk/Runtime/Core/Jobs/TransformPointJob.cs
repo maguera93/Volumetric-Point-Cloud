@@ -40,6 +40,8 @@ namespace Volum.SDK.Core.Jobs
             float sn = math.sin(angle);
             newPos = new float3(newPos.x * cs - newPos.z * sn, newPos.y, newPos.x * sn + newPos.z * cs);
 
+
+            // White Color: it can be changed through some animation
             float4 color = new float4(255, 255, 255, 255);
 
             OutPut[index] = new VolumPoint { Position = newPos, Color = color};

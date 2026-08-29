@@ -10,7 +10,7 @@ namespace Volum.SDK
     /// </summary>
     public class VolumFrame
     {
-        public NativeArray<VolumPoint> Points;
+        public readonly NativeArray<VolumPoint> Points;
         public int PointCount;
         public int FrameIndex;
         public float TimeSeconds;

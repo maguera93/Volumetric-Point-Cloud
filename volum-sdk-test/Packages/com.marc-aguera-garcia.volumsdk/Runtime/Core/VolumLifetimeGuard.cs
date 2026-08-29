@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Volum.SDK.Core
 {
+    /// <summary>
+    /// Safety net: force disposes all Volum Stream on Application Quit
+    /// </summary>
     internal static class VolumLifetimeGuard
     {
         private static readonly List<VolumStream> _active = new List<VolumStream>();
