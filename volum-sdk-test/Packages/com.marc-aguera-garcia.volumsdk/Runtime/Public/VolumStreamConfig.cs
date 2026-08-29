@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 
 namespace Volum.SDK
 {
-    public class VolumStreamConfig
+    [Serializable]
+    public struct VolumStreamConfig
     {
-
+        public int PointCount;
+        public int FrameRate;
     }
 }

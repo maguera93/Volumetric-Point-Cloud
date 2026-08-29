@@ -2,8 +2,13 @@ using UnityEngine;
 
 namespace Volum.SDK
 {
-    public static class VolumStream
+    public class VolumStream
     {
-        
+        public VolumStreamConfig Config { get; }
+
+        internal VolumStream(VolumStreamConfig config)
+        {
+            Config = config;
+        }
     }
 }

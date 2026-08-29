@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -10,6 +11,8 @@ public class VolumController : MonoBehaviour
     private int _pointCount = 50000;
     [SerializeField]
     private int _frameRate = 60;
+
+    private VolumStream _stream;
 
     VolumFrame _frame;
     Mesh _mesh;
@@ -27,7 +30,7 @@ public class VolumController : MonoBehaviour
         _frame = new VolumFrame();
         _frame.Initialize();
     }
-
+    /*
     private void Update()
     {
         _frame.UpdateFrame();
@@ -41,15 +44,22 @@ public class VolumController : MonoBehaviour
             MeshUpdateFlags.DontRecalculateBounds | MeshUpdateFlags.DontValidateIndices);
             i++;
         }
-    }
+    }*/
 
     private void OnEnable()
     {
-        //var config = new VolumStreamConfig();
-    }
+        var config = new VolumStreamConfig 
+        {
+            FrameRate = _frameRate,
+            PointCount = _pointCount
+        };
 
+        _stream = VolumSDK.InitStream(config);
+    }
+    /*
     private void AllocateMeshBuffers(int count)
     {
+
         var layout = new[]
         {
                 new VertexAttributeDescriptor(VertexAttribute.Position, VertexAttributeFormat.Float32, 3),
@@ -62,5 +72,5 @@ public class VolumController : MonoBehaviour
         _mesh.SetSubMesh(0, new SubMeshDescriptor(0, count, MeshTopology.Points));
 
         _mesh.bounds = new Bounds(Vector3.zero, Vector3.one * (5f * 3f));
-    }
+    }*/
 }
