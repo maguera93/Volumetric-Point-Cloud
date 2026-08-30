@@ -1,0 +1,115 @@
+* commit 2b48364d16ca87bf2bdb0f60ef015cd6ededf702 (HEAD -> main, origin/main, origin/HEAD)
+| Author: Marc <magueracoras@gmail.com>
+| Date:   Sun Aug 30 13:31:41 2026 +0200
+| 
+|     Update README.md
+| 
+* commit 6a0cdf4c017ce0e907396000f7edc79cf91b17ac
+| Author: Marc <magueracoras@gmail.com>
+| Date:   Sun Aug 30 12:37:36 2026 +0200
+| 
+|     Volum Package
+|   
+| * commit da80603c787141879f9cfe898de064a655e62dce (origin/develop, develop)
+| | Author: Marc <magueracoras@gmail.com>
+| | Date:   Sun Aug 30 12:12:49 2026 +0200
+| | 
+| |     Create Assembly Definition for Demo Scene
+| | 
+| * commit d033bd438a7a469f01b6821608c488c15dc7c6ec
+| | Author: Marc <magueracoras@gmail.com>
+| | Date:   Sun Aug 30 12:00:11 2026 +0200
+| | 
+| |     Added frames counter, comments and clean code
+| | 
+| * commit bad07bef2bd35a517ddd297f2a403ed8a2858bc0
+| | Author: Marc <magueracoras@gmail.com>
+| | Date:   Sat Aug 29 19:29:40 2026 +0200
+| | 
+| |     More cleaning and comments added
+| | 
+| * commit 556cd2b2ccc088e7dd5a8bf80f74636af875aff8
+| | Author: Marc <magueracoras@gmail.com>
+| | Date:   Sat Aug 29 19:10:10 2026 +0200
+| | 
+| |     Clean package
+| | 
+| * commit 2eaf65049bddcdd9e94c30af5abeb6a6ccd722f2
+| | Author: Marc <magueracoras@gmail.com>
+| | Date:   Sat Aug 29 18:31:19 2026 +0200
+| | 
+| |     Change access type of some classes
+| | 
+| * commit 3a4168039558d663def7c2b45135f0fe7d7ef0f1
+| | Author: Marc <magueracoras@gmail.com>
+| | Date:   Sat Aug 29 14:38:33 2026 +0200
+| | 
+| |     Added burst mode to match desired framerate
+| | 
+| * commit ec036e983827ad410d1dd91acafb5b542619baaa
+| | Author: Marc <magueracoras@gmail.com>
+| | Date:   Sat Aug 29 14:28:50 2026 +0200
+| | 
+| |     Initialize points job
+| | 
+| * commit a96e4b3116572167337b503eaadf91ec112f0d8c
+| | Author: Marc <magueracoras@gmail.com>
+| | Date:   Sat Aug 29 13:22:12 2026 +0200
+| | 
+| |     Create custom update loop and some missing variables to config
+| | 
+| * commit f5ec4135537e78c4a8779d9a428517244e13a54b
+| | Author: Marc <magueracoras@gmail.com>
+| | Date:   Sat Aug 29 12:55:37 2026 +0200
+| | 
+| |     update volum controller
+| |     
+| |     Still doesn't work but now shows a cloud of volumetric points
+| | 
+| * commit def91ae1de07cd636ccda80bec59d1894472881d
+| | Author: Marc <magueracoras@gmail.com>
+| | Date:   Sat Aug 29 12:13:22 2026 +0200
+| | 
+| |     Move translation job to sdk package
+| | 
+| * commit 080cc1a5e6569458255f7348d0ef92a3e965d0ef
+| | Author: Marc <magueracoras@gmail.com>
+| | Date:   Sat Aug 29 11:11:23 2026 +0200
+| | 
+| |     Update demo scene
+| | 
+| * commit e9712af4ba8af2e7ee7bac197445cae1c925e296
+| | Author: Marc <magueracoras@gmail.com>
+| | Date:   Sat Aug 29 11:10:04 2026 +0200
+| | 
+| |     test movement with jobs parallel system
+| | 
+| * commit 1580153deb252bdf1b4feea38338a8493d9d3287
+| | Author: Marc <magueracoras@gmail.com>
+| | Date:   Sat Aug 29 10:34:00 2026 +0200
+| | 
+| |     test movement on a single particle
+| | 
+| * commit c4ec64f183f5c6d8d9c13d40a5ba83122d2ccfd3
+| | Author: Marc <magueracoras@gmail.com>
+| | Date:   Sat Aug 29 09:55:12 2026 +0200
+| | 
+| |     Create Strean Config
+| | 
+| * commit c8a7d9b5359d816d39044f0bf933ee8451c60e45
+| | Author: Marc <magueracoras@gmail.com>
+| | Date:   Fri Aug 28 19:55:53 2026 +0200
+| | 
+| |     test volum translation
+| | 
+| * commit 29966e05589cccc7310a24ebf1a6db504202f49e
+|/  Author: Marc <magueracoras@gmail.com>
+|   Date:   Fri Aug 28 18:29:24 2026 +0200
+|   
+|       Create SDK Package
+| 
+* commit f0b29f141426ba3298c0658a6c5387d3bc1f88c2
+  Author: Marc <magueracoras@gmail.com>
+  Date:   Fri Aug 28 17:43:06 2026 +0200
+  
+      Initial commit
