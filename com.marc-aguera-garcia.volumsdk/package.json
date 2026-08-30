@@ -1,0 +1,19 @@
+{
+	"name": "com.marc-aguera-garcia.volumsdk",
+	"displayName": "VolumSDK",
+	"version": "0.1.0",
+	"unity": "6000.3",
+	"unityRelease": "10f1",
+	"description": "A Unity package for processing a real-time stream of volumetric point-cloud geometry using the C# Job System and Burst Compiler, with a processing core that has zero dependency on Unity's rendering pipeline.",
+	"dependencies": {
+		"com.unity.test-framework": "1.6.0"
+	},
+	"author": {
+		"name": "Marc Aguera Garcia",
+		"url": "https://github.com/maguera93",
+		"email": "magueracoras@gmail.com"
+	},
+	"changelogUrl": "https://example.com/changelog.html",
+	"documentationUrl": "https://example.com/",
+	"licensesUrl": "https://example.com/licensing.html"
+}

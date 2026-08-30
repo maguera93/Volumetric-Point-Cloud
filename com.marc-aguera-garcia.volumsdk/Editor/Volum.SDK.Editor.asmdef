@@ -1,0 +1,18 @@
+{
+    "name": "Volum.SDK.Editor",
+    "rootNamespace": "Volum.SDK.Editor",
+    "references": [
+        "Volum.SDK"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
