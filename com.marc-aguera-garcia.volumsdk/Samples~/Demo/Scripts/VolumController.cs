@@ -3,7 +3,6 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using Volum.SDK;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 namespace Volum.SDK.Samples.Demo
 {
