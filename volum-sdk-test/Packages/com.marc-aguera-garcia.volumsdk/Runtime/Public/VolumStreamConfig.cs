@@ -14,6 +14,5 @@ namespace Volum.SDK
         public float VolumRadius;
         public float Speed;
         public float NoiseFrequency;
-        public uint Seed;
     }
 }

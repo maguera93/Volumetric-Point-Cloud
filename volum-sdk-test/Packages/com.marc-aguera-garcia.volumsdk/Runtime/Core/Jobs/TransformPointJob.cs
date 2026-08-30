@@ -42,7 +42,7 @@ namespace Volum.SDK.Core.Jobs
 
 
             // White Color: it can be changed through some animation
-            float4 color = new float4(255, 255, 255, 255);
+            float4 color = new float4(1f, 1f, 1f, 1f);
 
             OutPut[index] = new VolumPoint { Position = newPos, Color = color};
         }

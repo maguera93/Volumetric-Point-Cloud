@@ -20,9 +20,10 @@ namespace Volum.SDK.Core
         private NativeArray<float3> _basePos;
         private NativeArray<VolumPoint> _bufferA;
         private NativeArray<VolumPoint> _bufferB;
-        private int CurrentFrame;
 
         private int _writeIndex;
+
+        public int FrameIndex { get; private set; }
 
         internal PointProcessor(VolumStreamConfig config)
         {
@@ -39,11 +40,14 @@ namespace Volum.SDK.Core
             var genJob = new GenerationPointJob
             {
                 BasePositions = _basePos,
-                Radius = _config.VolumRadius,
-                Seed = _config.Seed,
+                Radius = _config.VolumRadius
             };
 
             genJob.Schedule(_config.PointCount, BATCH_SIZE).Complete();
+
+            _elapsed = 0;
+            _writeIndex = 0;
+            FrameIndex = 0;
 
             if (!_hasPending)
             {
@@ -66,8 +70,8 @@ namespace Volum.SDK.Core
             _hasPending = false;
 
             NativeArray<VolumPoint> ready = _writeIndex == 0 ? _bufferA : _bufferB;
-            CurrentFrame++;
-            frame = new VolumFrame(ready, CurrentFrame, _elapsed);
+            FrameIndex++;
+            frame = new VolumFrame(ready, FrameIndex, _elapsed);
 
             // Change buffer
             _writeIndex = 1 - _writeIndex;

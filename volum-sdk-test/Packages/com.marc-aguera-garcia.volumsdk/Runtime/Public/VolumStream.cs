@@ -17,12 +17,30 @@ namespace Volum.SDK
     /// </summary>
     public sealed class VolumStream : IDisposable
     {
+        /// <summary>
+        /// Raised once per streamed frame
+        /// </summary>
         public event Action<VolumFrame> OnFrameReady;
+
+        /// <summary>
+        /// Configuration of this stream
+        /// </summary>
         public VolumStreamConfig Config { get; }
 
+        /// <summary>
+        /// True when volum stream is running
+        /// </summary>
         public bool IsRunning { get; private set; }
 
+        /// <summary>
+        /// True when volum stream is disposed. A disposed stream cannot be restarted
+        /// </summary>
         public bool IsDisposed { get; private set; }
+
+        /// <summary>
+        /// Index of the most recently made frame
+        /// </summary>
+        public int FrameIndex => _processor.FrameIndex;
 
         private PointProcessor _processor;
         private float _accumulator;
