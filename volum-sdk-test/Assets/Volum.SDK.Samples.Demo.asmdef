@@ -1,0 +1,16 @@
+{
+    "name": "Volum.SDK.Samples.Demo",
+    "rootNamespace": "Volum.SDK.Samples.Demo",
+    "references": [
+        "GUID:07d93f7157bfdf64183fc56b0181c557"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
